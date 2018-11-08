@@ -9,7 +9,7 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title has-text-primary">
-                        <span class="has-text-black">Edit project</span>: {{ $project->title }}
+                        <span class="has-text-black highlight">Edit project</span>: {{ $project->title }}
                     </p>
                     <a href="#" class="card-header-icon" aria-label="more options">
                       <span class="icon">

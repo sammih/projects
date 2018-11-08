@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+//        To apply the middleware only to the given actions
+//        $this->middleware('auth')->only(['store', 'update']);
+
+        //        To apply the middleware to all actions except the specified
+        //        $this->middleware('auth')->except(['show', 'index']);
+
+    }
+
     public function index()
     {
-    	$projects = Project::all();
+    	$projects = Project::where('user_id', auth()->id())->get();
     	return view('index', compact('projects'));
 
     }
@@ -22,6 +33,12 @@ class ProjectsController extends Controller
 
     public function show(Project $project)
     {
+//        if ($project->user_id !== auth()->id()) {
+//            abort(403);
+//        }
+//   *     abort_unless(auth()->user()->owns($project), 403);
+
+        abort_if($project->user_id !== auth()->id(),403);
 
         return view('show', compact('project'));
 
@@ -29,10 +46,14 @@ class ProjectsController extends Controller
 
     public function store()
     {
-        Project::create(request()->validate([
+        $attributes = request()->validate([
             'title' => ['required', 'min:3'],
             'description' => ['required', 'min:8']
-        ]));
+        ]);
+
+        $attributes['user_id'] = auth()->id();
+
+        Project::create($attributes);
 
     	return redirect('/projects');
 

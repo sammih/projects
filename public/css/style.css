@@ -10,3 +10,7 @@ body {
 a {
     text-decoration: none;
 }
+
+.button.is-grey {
+    color: #A9A9A9;
+}

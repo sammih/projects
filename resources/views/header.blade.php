@@ -44,12 +44,17 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
-                    </a>
+                    @if(auth()->id())
+                        <a class="button is-light is-outlined">
+                            Log in
+                        </a>
+                     @else{
+                        <a class="button is-primary">
+                            <strong>Sign up</strong>
+                        </a>
+                    }
+                    @endif
+
                 </div>
             </div>
         </div>
