@@ -20,8 +20,10 @@ class ProjectsController extends Controller
 
     public function index()
     {
+        $now = new Carbon();
+
     	$projects = Project::where('user_id', auth()->id())->get();
-    	return view('index', compact('projects'));
+    	return view('index', compact('projects', 'now'));
 
     }
 
